@@ -2,7 +2,7 @@
 
 # Set the configuration
 if [ "$1" == "debug" ]; then
-  CONFIG=debug_x64
+  CONFIG=debug_rgfw_arm64
 else
   CONFIG=${1:-release_rgfw_arm64}
 fi
