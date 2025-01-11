@@ -6,9 +6,10 @@ if [ "$1" == "debug" ]; then
 else
   CONFIG=${1:-release_rgfw_arm64}
 fi
+
 # Build the project
 echo "Building project with configuration: $CONFIG"
-make config=$CONFIG
+make config=$CONFIG VERBOSE=1
 
 # Check if the build was successful
 if [ $? -eq 0 ]; then
@@ -19,8 +20,15 @@ if [ $? -eq 0 ]; then
   else
     OUTPUT_DIR="./bin/Release_RGFW"
   fi
-  # Run the project
-  $OUTPUT_DIR/CardioidAnimation
+  # Check if the executable exists
+  if [ -f "$OUTPUT_DIR/CardioidAnimation" ]; then
+    # Run the project
+    $OUTPUT_DIR/CardioidAnimation
+  else
+    echo "Error: Executable not found in $OUTPUT_DIR"
+    exit 1
+  fi
 else
   echo "Build failed."
+  exit 1
 fi
